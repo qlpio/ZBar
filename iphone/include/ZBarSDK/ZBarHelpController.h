@@ -41,7 +41,7 @@
 {
     NSString *reason;
     id delegate;
-    UIWebView *webView;
+    UIView *webView;
     UIToolbar *toolbar;
     UIBarButtonItem *doneBtn, *backBtn, *space;
     NSURL *linkURL;

@@ -84,11 +84,11 @@
     view.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
                              UIViewAutoresizingFlexibleHeight);
 
-    webView = [[UIWebView alloc]
+    webView = [[UIView alloc]
                   initWithFrame: CGRectMake(0, 0,
                                             bounds.size.width,
                                             bounds.size.height - 44)];
-    webView.delegate = self;
+//    webView.delegate = self;
     webView.backgroundColor = [UIColor colorWithWhite: .125f
                                        alpha: 1];
     webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
@@ -137,10 +137,10 @@
         if(url)
             req = [NSURLRequest requestWithURL: url];
     }
-    if(req)
-        [webView loadRequest: req];
-    else
-        NSLog(@"ERROR: unable to load zbar-help.html from bundle");
+//    if(req)
+//        [webView loadRequest: req];
+//    else
+//        NSLog(@"ERROR: unable to load zbar-help.html from bundle");
 }
 
 - (void) viewDidUnload
@@ -152,16 +152,16 @@
 - (void) viewWillAppear: (BOOL) animated
 {
     assert(webView);
-    if(webView.loading)
-        webView.hidden = YES;
-    webView.delegate = self;
+//    if(webView.loading)
+//        webView.hidden = YES;
+//    webView.delegate = self;
     [super viewWillAppear: animated];
 }
 
 - (void) viewWillDisappear: (BOOL) animated
 {
-    [webView stopLoading];
-    webView.delegate = nil;
+//    [webView stopLoading];
+//    webView.delegate = nil;
     [super viewWillDisappear: animated];
 }
 
@@ -173,7 +173,7 @@
 - (void) willAnimateRotationToInterfaceOrientation: (UIInterfaceOrientation) orient
                                           duration: (NSTimeInterval) duration
 {
-    [webView reload];
+//    [webView reload];
 }
 
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) orient
@@ -210,51 +210,51 @@
         [self dismissModalViewControllerAnimated: YES];
 }
 
-- (void) webViewDidFinishLoad: (UIWebView*) view
-{
-    if(view.hidden) {
-        [view stringByEvaluatingJavaScriptFromString:
-            [NSString stringWithFormat:
-                @"onZBarHelp({reason:\"%@\"});", reason]];
-        [UIView beginAnimations: @"ZBarHelp"
-                context: nil];
-        view.hidden = NO;
-        [UIView commitAnimations];
-    }
-
-    BOOL canGoBack = [view canGoBack];
-    NSArray *items = toolbar.items;
-    if(canGoBack != ([items objectAtIndex: 0] == backBtn)) {
-        if(canGoBack)
-            items = [NSArray arrayWithObjects: backBtn, space, doneBtn, nil];
-        else
-            items = [NSArray arrayWithObjects: space, doneBtn, nil];
-        [toolbar setItems: items
-                 animated: YES];
-    }
-}
-
-- (BOOL)             webView: (UIWebView*) view
-  shouldStartLoadWithRequest: (NSURLRequest*) req
-              navigationType: (UIWebViewNavigationType) nav
-{
-    NSURL *url = [req URL];
-    if([url isFileURL])
-        return(YES);
-
-    linkURL = [url retain];
-    UIAlertView *alert =
-        [[UIAlertView alloc]
-            initWithTitle: @"Open External Link"
-            message: @"Close this application and open link in Safari?"
-            delegate: nil
-            cancelButtonTitle: @"Cancel"
-            otherButtonTitles: @"OK", nil];
-    alert.delegate = self;
-    [alert show];
-    [alert release];
-    return(NO);
-}
+//- (void) webViewDidFinishLoad: (UIWebView*) view
+//{
+//    if(view.hidden) {
+//        [view stringByEvaluatingJavaScriptFromString:
+//            [NSString stringWithFormat:
+//                @"onZBarHelp({reason:\"%@\"});", reason]];
+//        [UIView beginAnimations: @"ZBarHelp"
+//                context: nil];
+//        view.hidden = NO;
+//        [UIView commitAnimations];
+//    }
+//
+//    BOOL canGoBack = [view canGoBack];
+//    NSArray *items = toolbar.items;
+//    if(canGoBack != ([items objectAtIndex: 0] == backBtn)) {
+//        if(canGoBack)
+//            items = [NSArray arrayWithObjects: backBtn, space, doneBtn, nil];
+//        else
+//            items = [NSArray arrayWithObjects: space, doneBtn, nil];
+//        [toolbar setItems: items
+//                 animated: YES];
+//    }
+//}
+//
+//- (BOOL)             webView: (UIWebView*) view
+//  shouldStartLoadWithRequest: (NSURLRequest*) req
+//              navigationType: (UIWebViewNavigationType) nav
+//{
+//    NSURL *url = [req URL];
+//    if([url isFileURL])
+//        return(YES);
+//
+//    linkURL = [url retain];
+//    UIAlertView *alert =
+//        [[UIAlertView alloc]
+//            initWithTitle: @"Open External Link"
+//            message: @"Close this application and open link in Safari?"
+//            delegate: nil
+//            cancelButtonTitle: @"Cancel"
+//            otherButtonTitles: @"OK", nil];
+//    alert.delegate = self;
+//    [alert show];
+//    [alert release];
+//    return(NO);
+//}
 
 - (void)     alertView: (UIAlertView*) view
   clickedButtonAtIndex: (NSInteger) idx
